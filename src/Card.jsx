@@ -10,7 +10,7 @@ function Card({ title, category, description, content, originPrice, price, image
                 <p className="card-text">商品內容{content}</p>
                 <div className="d-flex">
                     <p className="card-text">
-                        <del>{originPrice}</del>元 / {price}元
+                        商品價格：<del>{originPrice}</del>元 / {price}元
                     </p>
                 </div>
                 <h5 className="mt-3">更多圖片：</h5>

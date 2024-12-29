@@ -4,7 +4,7 @@ import Card from './Card';
 
 function App() {
 
-  const productList =
+  const products =
     [
       {
         category: "甜甜圈",
@@ -59,9 +59,6 @@ function App() {
     ];
   const [tempProduct, setTempProduct] = React.useState(null);
 
-  const [products, setProducts] = React.useState(productList);
-
-
   return (
     <>
       <div className="container">
@@ -87,7 +84,7 @@ function App() {
                       <td>{product.origin_price}</td>
                       <td>{product.price}</td>
                       <td>{product.is_enabled ? "是" : "否"}</td>
-                      <td><button type="button" className={tempProduct == product ? 'btn btn-primary-700' : 'btn btn-primary'} onClick={() => {
+                      <td><button type="button" className={tempProduct?.id === product.id ? 'btn btn-primary-700' : 'btn btn-primary'} onClick={() => {
                         setTempProduct(product)
                       }}>查看細節</button></td>
                     </tr>
@@ -103,7 +100,6 @@ function App() {
               tempProduct ?
                 (
                   <Card title={tempProduct.title} category={tempProduct.category} description={tempProduct.description} content={tempProduct.content} originPrice={tempProduct.origin_price} price={tempProduct.price} imageUrl={tempProduct.imageUrl} imagesUrl={tempProduct.imagesUrl} />
-
                 )
                 : (<p className="text-secondary">請選擇一個商品</p>)
             }
