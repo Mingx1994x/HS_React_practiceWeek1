@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 // import './App.css'
-// import Card from './Card';
+import Card from './Card';
 
 function App() {
 
-  const [tempProduct, setTempProduct] = React.useState(null);
-  const [products, setProduct] = React.useState(
+  const productList =
     [
       {
         category: "甜甜圈",
@@ -56,8 +55,12 @@ function App() {
           "https://images.unsplash.com/flagged/photo-1557234985-425e10c9d7f1?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTA5fHxjYWtlfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60",
           "https://images.unsplash.com/photo-1540337706094-da10342c93d8?ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDR8fGNha2V8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60"
         ]
-      }]
-  );
+      }
+    ];
+  const [tempProduct, setTempProduct] = React.useState(null);
+
+  const [products, setProducts] = React.useState(productList);
+
 
   return (
     <>
@@ -77,13 +80,14 @@ function App() {
               </thead>
               <tbody>
                 {
-                  products.map(product => (
+                  products.map(product =>
+                  (
                     <tr key={product.id}>
                       <td>{product.title}</td>
                       <td>{product.origin_price}</td>
                       <td>{product.price}</td>
                       <td>{product.is_enabled ? "是" : "否"}</td>
-                      <td><button type="button" className='btn btn-primary' onClick={() => {
+                      <td><button type="button" className={tempProduct == product ? 'btn btn-primary-700' : 'btn btn-primary'} onClick={() => {
                         setTempProduct(product)
                       }}>查看細節</button></td>
                     </tr>
@@ -97,25 +101,10 @@ function App() {
             <h2>單一產品細節</h2>
             {
               tempProduct ?
-                (<div className="card mb-3">
-                  <img src={tempProduct.imageUrl} className='card-img-top primary-image' alt="main images" />
-                  <div className="card-body">
-                    <h5 className="card-title">
-                      {tempProduct.title}<span className="badge bg-primary">{tempProduct.category}</span>
-                    </h5>
-                    <p className="card-text">商品描述：{tempProduct.category}</p>
-                    <p className="card-text">商品內容{tempProduct.content}</p>
-                    <div className="d-flex">
-                      <p className="card-text">
-                        <del>{tempProduct.origin_price}</del>元 / {tempProduct.price}元
-                      </p>
-                    </div>
-                    <h5 className="mt-3">更多圖片：</h5>
-                    <div className="d-flex flex-wrap">
-                      {tempProduct.imagesUrl.map(url => (<img className='images' src={url} alt="other images" />))}
-                    </div>
-                  </div>
-                </div>)
+                (
+                  <Card title={tempProduct.title} category={tempProduct.category} description={tempProduct.description} content={tempProduct.content} originPrice={tempProduct.origin_price} price={tempProduct.price} imageUrl={tempProduct.imageUrl} imagesUrl={tempProduct.imagesUrl} />
+
+                )
                 : (<p className="text-secondary">請選擇一個商品</p>)
             }
           </div>
